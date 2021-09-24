@@ -1,0 +1,23 @@
+{
+    "go.delveConfig": {
+        "dlvLoadConfig": {
+            "followPointers": true,
+            "maxVariableRecurse": 1,
+            "maxStringLen": 10000,
+            "maxArrayValues": 500,
+            "maxStructFields": -1
+        }
+    },
+    "go.testFlags": [
+        "-v",
+    ],
+    "go.toolsEnvVars": {
+        // "GOFLAGS": "-tags=postgres"
+    },
+    "gopls": {
+        "build.experimentalWorkspaceModule": true
+    },
+    "go.testEnvVars": {
+        "LOG_URL": "http://loki-logrus:3100"
+    }
+}

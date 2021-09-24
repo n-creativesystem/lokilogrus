@@ -1,0 +1,33 @@
+version: "3.8"
+services:
+  lokilogrus-dev:
+    image: ncreativesystem/golang-developments:dev
+    tty: true
+    container_name: lokilogrus-dev
+    volumes:
+      - .:/src/:delegated
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ~/.ssh:/root/.ssh
+      - ~/.gitconfig:/root/.gitconfig
+    environment:
+      TZ: Asia/Tokyo
+    networks:
+      - loki-net
+  loki:
+    image: grafana/loki:2.3.0
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - loki-net
+    container_name: loki-logrus
+  grafana:
+    image: grafana/grafana:8.1.4
+    container_name: loki_grafana
+    networks:
+      - loki-net
+    ports:
+      - 3001:3000
+    env_file: .loki.env
+networks:
+  loki-net:
+    name: loki-net
+    driver: bridge
